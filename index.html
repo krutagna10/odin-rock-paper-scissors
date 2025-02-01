@@ -19,7 +19,49 @@
     <script src="./js/script.js" defer></script>
     <title>Odin Rock Paper Scissors</title>
   </head>
-  <body class="font-josefin grid place-content-center min-h-screen">
-    <h1 class="text-4xl">Odin Rock Paper Scissors</h1>
+  <body
+    class="font-josefin grid min-h-screen place-content-center gap-4 text-center"
+  >
+    <main>
+      <div class="flex flex-col gap-4">
+        <h1 class="text-3xl">Odin Rock Paper Scissors</h1>
+        <h2>Select your choice</h2>
+        <div class="flex gap-2">
+          <button
+            class="choice-btn 3 flex-1 cursor-pointer bg-teal-600 px-6 py-3 duration-300 ease-in hover:bg-teal-800"
+            value="rock"
+          >
+            Rock
+          </button>
+          <button
+            class="choice-btn flex-1 cursor-pointer bg-pink-500 px-6 py-3 duration-300 ease-in hover:bg-pink-700"
+            value="paper"
+          >
+            Paper
+          </button>
+          <button
+            class="choice-btn flex-1 cursor-pointer bg-blue-500 px-6 py-3 duration-300 ease-in hover:bg-blue-700"
+            value="scissors"
+          >
+            Scissors
+          </button>
+        </div>
+        <table class="border-1">
+          <thead>
+            <tr class="p-3">
+              <th class="border-1 p-3">User Score</th>
+              <th class="border-1 p-3">Computer Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="user-score border-1 p-3">0</td>
+              <td class="computer-score border-1 p-3">0</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>WINNER: <span class="result"></span></p>
+      </div>
+    </main>
   </body>
 </html>

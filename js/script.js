@@ -1,45 +1,60 @@
 "use strict";
-var _a;
-const choices = ["rock", "paper", "scissors"];
-const MAX_ROUNDS = 5;
+// Constants
+const CHOICES = ["rock", "paper", "scissors"];
+const WIN_CONDITIONS = {
+    rock: "scissors",
+    paper: "rock",
+    scissors: "paper",
+};
+// DOM Elements
+const elChoiceButtons = document.querySelectorAll(".choice-btn");
+const elResult = document.querySelector(".result");
+const elUserScore = document.querySelector(".user-score");
+const elComputerScore = document.querySelector(".computer-score");
+// Game State Variables
+let userScore = 0;
+let computerScore = 0;
 function getComputerChoice() {
     const random = Math.floor(Math.random() * 3);
-    return choices[random];
+    return CHOICES[random];
 }
 function getHumanChoice() {
     let userInput = prompt("Enter your choice (Rock, Paper, Scissors)");
     return userInput;
 }
+function changeUserScore() {
+    elUserScore.textContent = `${userScore}`;
+}
+function changeComputerScore() {
+    elComputerScore.textContent = `${computerScore}`;
+}
+function displayWinner(winner) {
+    elResult.textContent = `${winner.toUpperCase()}`;
+}
 function playRound(humanChoice, computerChoice) {
-    let conditions = {
-        rock: "scissors",
-        paper: "rock",
-        scissors: "paper",
-    };
     if (humanChoice === computerChoice) {
-        tieScore++;
-        console.log("The game is draw");
+        return;
+    }
+    if (WIN_CONDITIONS[humanChoice] === computerChoice) {
+        userScore++;
+        changeUserScore();
+        if (userScore === 5) {
+            displayWinner("USER");
+        }
     }
     else {
-        if (conditions[humanChoice] === computerChoice) {
-            humanScore++;
-            console.log(`You win ${humanChoice} beats ${computerChoice}`);
-        }
-        else {
-            computerScore++;
-            console.log(`You lose ${computerChoice} beats ${humanChoice}`);
+        computerScore++;
+        changeComputerScore();
+        if (computerScore === 5) {
+            displayWinner("COMPUTER");
         }
     }
 }
-// function playGame() {
-//   for (let i = 0; i < MAX_ROUNDS; i++) {
-//     playRound(humanSelection, computerSelection);
-//   }
-//   console.log({ tieScore, humanScore, computerScore });
-// }
-let humanScore = 0;
-let computerScore = 0;
-let tieScore = 0;
-let humanSelection = (_a = getHumanChoice()) === null || _a === void 0 ? void 0 : _a.toLowerCase();
-let computerSelection = getComputerChoice();
-playRound(humanSelection, computerSelection);
+elChoiceButtons.forEach((choiceButton) => {
+    choiceButton.addEventListener("click", (event) => {
+        const target = event.target;
+        const humanChoice = target.value;
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    });
+});
